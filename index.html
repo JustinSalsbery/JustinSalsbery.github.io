@@ -88,16 +88,29 @@
 
             // No validation
             console.log(age, sex, race, region);
-            console.log(data[age + ".0"][sex][race][region])
+            // console.log(data[age + ".0"][sex][race][region]);
 
-            error_p = document.getElementById("oximeterErrorDiv")
-            const datum = data[age + ".0"][sex][race][region]
+            error_p = document.getElementById("oximeterErrorDiv");
+            let datum = data[age + ".0"];
 
-            if (datum == undefined) {
-                error_p.innerText = "No data found."
-            } else {
-                error_p.innerText = datum["arms"] + " ARMS with " + datum["n"] + " samples.";
+            if (datum != undefined) { // Should be helper function
+                datum = data[sex];
             }
+
+            if (datum != undefined) {
+                datum = data[race];
+            }
+
+            if (datum != undefined) {
+                datum = data[region];
+            }
+
+            if (datum != undefined) {
+                error_p.innerText = datum["arms"] + " ARMS with " + datum["n"] + " samples.";
+                return;
+            }
+
+            error_p.innerText = "No data found.";
         }
 
         const data = { // age -> sex -> race -> region
